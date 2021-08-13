@@ -17,6 +17,17 @@ export class TrackEditorComponent implements OnInit {
   public isDisplayRowSelector: boolean = false;
   public addRowIndex: number = null;
   
+  public mouseOverRowIndex: number = null;
+  public mouseoverRow(rowIndex: number) {
+    this.mouseOverRowIndex = rowIndex;
+  }
+
+  public endMouseoverRow(rowIndex: number) {
+    if (this.mouseOverRowIndex === rowIndex) {
+      this.mouseOverRowIndex = null;
+    }
+  }
+  
   constructor() { }
 
   ngOnInit() {

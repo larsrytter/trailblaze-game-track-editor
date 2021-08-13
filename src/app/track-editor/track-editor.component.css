@@ -40,6 +40,10 @@
     background: chocolate;
 }
 
+.add-row-at-position-hidden {
+    visibility: hidden;
+}
+
 .add-row-at-position-button {
     
 }
