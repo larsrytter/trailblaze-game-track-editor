@@ -1,0 +1,16 @@
+<p>Pick a rowtype to add</p>
+<section class="row-selector-container">
+    <div class="row-selector" *ngIf="availableRowTypes">
+        <div *ngFor="let rowType of availableRowTypes | reverse"
+            class="rowType">
+            <button class="select-row-button" (click)="selectRowType(rowType)">Select</button>
+            <div *ngFor="let tile of rowType.tiles"
+                class="tile"
+                [style.background-color]="tile.effect === 'hole' ? '#000' : colors[tile.colorName]"
+                >
+                <span *ngIf="tile.effect">{{ tile.effect }}</span>
+                <span *ngIf="!tile.effect">&nbsp;</span>
+            </div>
+        </div>
+    </div>
+</section>

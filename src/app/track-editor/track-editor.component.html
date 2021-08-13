@@ -1,0 +1,31 @@
+<div class="editor-container">
+    <section class="track-rows-container">
+        <div class="add-row-marker">
+            <button class="add-row-button"
+                (click)="displayRowOptions()">Add row</button>
+        </div>
+        <div class="track-rows" *ngIf="trackData && trackData.rows">
+            <div *ngFor="let row of trackData.rows; let i = index"
+                class="row">
+                <div *ngFor="let tile of row.tiles"
+                    class="tile"
+                    [style.background-color]="tile.effect === 'hole' ? '#000' : colors[tile.colorName]"
+                    >&nbsp;</div>
+                <div class="add-row-at-position-container"
+                    [class.add-row-at-position-selected]="addRowIndex === i">
+                    <button
+                        class="add-row-at-position-button" 
+                        (click)="displayRowOptions(i)">Add row here</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section *ngIf="isDisplayRowSelector" 
+        class="rowtype-selector-container">
+        <row-selector 
+            [availableRowTypes]="availableRows"
+            [availableColorDefinitions]="availableColorDefinitions"
+            [colors]="colors"
+            (rowTypeSelected)="onRowTypeSelected($event)"></row-selector>
+    </section>
+</div>

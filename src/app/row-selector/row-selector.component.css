@@ -1,0 +1,18 @@
+.row-selector-container {
+    background: chocolate;
+}
+
+.tile {
+    display: inline-block;
+    border: 2px solid rgb(112, 102, 102);
+    width: 60px;
+    height: 60px;
+    line-break: anywhere;
+    overflow: hidden;
+}
+
+.select-row-button {
+    vertical-align: top;
+    line-height: 2em;
+    margin-top: 15px;
+}
