@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ColorDefinitionModel, RowModel, TileModel, TrackModel } from '../model';
+import { TrackDataService } from '../service/track-data.service';
 
 @Component({
   selector: 'track-editor',
@@ -9,6 +10,8 @@ import { ColorDefinitionModel, RowModel, TileModel, TrackModel } from '../model'
 export class TrackEditorComponent implements OnInit {
 
   @Input() public trackData: TrackModel = null;
+  @Output() public trackDataChanged: EventEmitter<TrackModel> = new EventEmitter<TrackModel>(); 
+  
   public availableRows:RowModel[] = [];
   public availableColorDefinitions:ColorDefinitionModel[];
   public colors: {[key:string]: string} = {};
@@ -28,12 +31,23 @@ export class TrackEditorComponent implements OnInit {
     }
   }
   
-  constructor() { }
+  constructor(private _trackDataService: TrackDataService) { }
 
   ngOnInit() {
-    this._loadAvailableRows();
-    this._loadStylesFromTrackData();
+    this._trackDataService.trackData.subscribe(trackData => {
+      this.trackData = trackData;
+      this._onTrackDataUpdated();
+    });
+    
   }
+
+  private _onTrackDataUpdated() {
+    if(this.trackData) {  
+      this._loadAvailableRows();
+      this._loadStylesFromTrackData();
+    }  
+  }
+
   public displayRowOptions(rowIndex:number = null) {
     this.isDisplayRowSelector = true;
     this.addRowIndex = rowIndex;
@@ -47,7 +61,12 @@ export class TrackEditorComponent implements OnInit {
     } else {
       this.trackData.rows.push(row);
     }
-    
+    console.log('picked row');
+    Object.assign(this.trackData, this.trackData);
+
+    this._trackDataService.setTrackData(this.trackData);
+    this._onTrackDataUpdated();
+    this.trackDataChanged.emit(this.trackData);
   }
 
   private _loadStylesFromTrackData() {

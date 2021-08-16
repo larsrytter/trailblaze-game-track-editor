@@ -10,10 +10,10 @@ export class AppComponent implements OnInit {
   
   title = 'trailblaze-leveleditor';
 
-  public trackData:TrackModel = null;
+  constructor(){}
 
   ngOnInit(): void {
-    this.trackData = this._loadTrackData();
+    
   }
 
   private _loadTrackData(): TrackModel {

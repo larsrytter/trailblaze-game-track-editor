@@ -1,4 +1,6 @@
 <div class="leveleditor">
   <h1>Edit level</h1>
-  <track-editor [trackData]="trackData"></track-editor>
+  <track-data-dialog></track-data-dialog>
+  <track-editor
+    (trackDataChanged)="onTrackDataChanged($event)"></track-editor>
 </div>

@@ -1,0 +1,9 @@
+<div>
+    <button (click)="toggleDisplaySource()">View track source-data</button>
+
+    <textarea
+        *ngIf="isDisplaySource" 
+        (change)="trackInputChanged($event)"
+        cols="30" 
+        rows="10">{{ trackJson }}</textarea>
+</div>
