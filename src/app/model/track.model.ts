@@ -16,3 +16,9 @@ export interface TileModel {
     colorName: string;
     effect: string;
 }
+
+export interface TileWithColorCodeModel {
+    colorName: string;
+    colorCode: string;
+    effect: string;
+}

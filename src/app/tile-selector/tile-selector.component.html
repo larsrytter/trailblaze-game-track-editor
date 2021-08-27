@@ -1,0 +1,23 @@
+<div class="tile-selector">
+    <label>
+        Color
+        <input name="tileColor" 
+            type="color" 
+            [(ngModel)]="color" 
+            list="colorPickerDefaultColors"
+            (change)="onValueChanged()" />
+        <datalist id="colorPickerDefaultColors">
+            <option *ngFor="let colorOption of colorsInUse"
+                [value]="colorOption"></option>
+        </datalist>
+    </label>
+    <label>
+        Effect
+        <select 
+            [(ngModel)]="tileEffect" 
+            (change)="onValueChanged()">
+            <option *ngFor="let tileEffectOption of tileEffectOptions"
+                [value]="tileEffectOption.value">{{ tileEffectOption.name }}</option>
+        </select>
+    </label>
+</div>

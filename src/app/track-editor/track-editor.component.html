@@ -12,6 +12,7 @@
                 <div *ngFor="let tile of row.tiles"
                     class="tile"
                     [style.background-color]="tile.effect === 'hole' ? '#000' : colors[tile.colorName]"
+                    [title]="tile.effect"
                     >&nbsp;</div>
                 <div class="add-row-at-position-container"
                     [class.add-row-at-position-selected]="addRowIndex === i"

@@ -1,3 +1,12 @@
+<section class="new-row-type-container">
+    <div *ngFor="let tileNum of newTilesArray; let i = index;">
+        <tile-selector (tileSelected)="onNewTileSelected($event, i)"
+            [colors]="colors"></tile-selector>
+    </div>
+    <div>
+        <button (click)="addNewRow()">Add to list</button>
+    </div>
+</section>
 <p>Pick a rowtype to add</p>
 <section class="row-selector-container">
     <div class="row-selector" *ngIf="availableRowTypes">
