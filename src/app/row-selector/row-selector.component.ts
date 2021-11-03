@@ -17,6 +17,10 @@ export class RowSelectorComponent implements OnInit {
   public numberOfTilesPerRow: number = 5;
   public newTilesArray:number[] = [];
 
+  public isNewRowValid: boolean = false;
+
+  public showNewTileSelector: boolean = true;
+
   private _newRowType: TileModel[] = [];
 
   constructor() { }
@@ -46,7 +50,7 @@ export class RowSelectorComponent implements OnInit {
 
   public onNewTileSelected(tile: TileWithColorCodeModel, columnIndex) {
     if (!this.colors[tile.colorName]) {
-      this.colors[tile.colorName] = tile.colorCode;
+      this.colors[tile.colorName] = `${tile.colorCode}`;
     }
 
     const newTile: TileModel = {
@@ -55,6 +59,19 @@ export class RowSelectorComponent implements OnInit {
     };
     
     this._newRowType[columnIndex] = newTile;
+    this._validateNewRow();
+  }
+
+  private _validateNewRow() {
+    this.isNewRowValid = false;
+    if(this._newRowType.length === this.numberOfTilesPerRow 
+        && this._newRowType.every(x => x !== null) ) {
+          this.isNewRowValid = true;
+        }
+  }
+
+  public onShowNewTileSelectorClicked(): void {
+    this.showNewTileSelector = true;
   }
 
   public addNewRow() {
@@ -74,5 +91,6 @@ export class RowSelectorComponent implements OnInit {
     this.availableRowTypes = this.availableRowTypes.map( x => x);
     // TODO: Clear tile-selector controls
     this._newRowType = [];
+    this.showNewTileSelector = false;
   }
 }

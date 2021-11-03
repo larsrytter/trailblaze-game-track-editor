@@ -8,7 +8,7 @@ import { TileWithColorCodeModel } from '../model';
 })
 export class TileSelectorComponent implements OnInit {
 
-  public color:string = '#ffffff';
+  public color: string = '#ffffff';
   public tileEffect: string = null;
   public tileEffectOptions: TileEffectOption[] = [];
   public colorsInUse: string[] = []; 
@@ -42,7 +42,6 @@ export class TileSelectorComponent implements OnInit {
         colorCode: this.color,
         effect: this.tileEffect
       }
-      
       this.tileSelected.emit(tile);
     }
   }
