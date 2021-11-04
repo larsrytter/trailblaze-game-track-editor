@@ -6,6 +6,11 @@
 .rowtype-selector-container {
     background-color: chocolate;
     padding: 4px 4px 4px 8px;
+    overflow-y: auto;
+    height: 80vh;
+    position: fixed;
+    left: 515px;
+    width: 400px;
 }
 
 .track-rows {

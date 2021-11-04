@@ -101,4 +101,11 @@ export class TrackEditorComponent implements OnInit {
     return rowsEqual;
   }
 
+  public deleteRow(row: RowModel): void {
+    const index = this.trackData.rows.indexOf(row);
+    if (index !== -1) {
+      this.trackData.rows.splice(index, 1);
+    }
+  }
+
 }

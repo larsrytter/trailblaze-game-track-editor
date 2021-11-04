@@ -9,6 +9,9 @@
                 class="row"
                 (mouseover)="mouseoverRow(i);"
                 (mouseout)="endMouseoverRow(i);">
+                <div class="tile">
+                    <button (click)="deleteRow(row)">Delete</button>
+                </div>
                 <div *ngFor="let tile of row.tiles"
                     class="tile"
                     [style.background-color]="tile.effect === 'hole' ? '#000' : colors[tile.colorName]"
