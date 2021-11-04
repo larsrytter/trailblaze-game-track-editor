@@ -92,5 +92,6 @@ export class RowSelectorComponent implements OnInit {
     // TODO: Clear tile-selector controls
     this._newRowType = [];
     this.showNewTileSelector = false;
+    this.isNewRowValid = false;
   }
 }
