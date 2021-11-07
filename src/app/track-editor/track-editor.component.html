@@ -9,7 +9,7 @@
                 class="row"
                 (mouseover)="mouseoverRow(i);"
                 (mouseout)="endMouseoverRow(i);">
-                <div class="tile">
+                <div class="tile-action">
                     <button (click)="deleteRow(row)">Delete</button>
                 </div>
                 <div *ngFor="let tile of row.tiles"
