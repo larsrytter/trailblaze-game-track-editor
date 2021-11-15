@@ -10,8 +10,8 @@ import { TrackDataService } from '../service/track-data.service';
 export class TrackEditorComponent implements OnInit {
 
   @Input() public trackData: TrackModel = null;
-  @Output() public trackDataChanged: EventEmitter<TrackModel> = new EventEmitter<TrackModel>(); 
-  
+  @Output() public trackDataChanged: EventEmitter<TrackModel> = new EventEmitter<TrackModel>();
+
   public availableRows:RowModel[] = [];
   public availableColorDefinitions:ColorDefinitionModel[];
   public colors: {[key:string]: string} = {};
@@ -19,7 +19,7 @@ export class TrackEditorComponent implements OnInit {
   public rowWidth: number = 5;
   public isDisplayRowSelector: boolean = false;
   public addRowIndex: number = null;
-  
+
   public mouseOverRowIndex: number = null;
   public mouseoverRow(rowIndex: number) {
     this.mouseOverRowIndex = rowIndex;
@@ -30,7 +30,7 @@ export class TrackEditorComponent implements OnInit {
       this.mouseOverRowIndex = null;
     }
   }
-  
+
   constructor(private _trackDataService: TrackDataService) { }
 
   ngOnInit() {
@@ -38,14 +38,17 @@ export class TrackEditorComponent implements OnInit {
       this.trackData = trackData;
       this._onTrackDataUpdated();
     });
-    
+
   }
 
   private _onTrackDataUpdated() {
-    if(this.trackData) {  
+    if(this.trackData) {
       this._loadAvailableRows();
+
+      this._rebuildColorDefinitions();
+
       this._loadStylesFromTrackData();
-    }  
+    }
   }
 
   public displayRowOptions(rowIndex:number = null) {
@@ -61,12 +64,32 @@ export class TrackEditorComponent implements OnInit {
     } else {
       this.trackData.rows.push(row);
     }
-    console.log('picked row');
+
+    this._rebuildColorDefinitions();
+
     Object.assign(this.trackData, this.trackData);
 
     this._trackDataService.setTrackData(this.trackData);
     this._onTrackDataUpdated();
     this.trackDataChanged.emit(this.trackData);
+  }
+
+  private _rebuildColorDefinitions() {
+    this.trackData.rows.forEach((row: RowModel) => {
+      row.tiles.forEach((tile: TileModel) => {
+        let colorDefinition: ColorDefinitionModel = this.trackData
+                                                        .colorDefinitions
+                                                        .find(c => c.colorName === tile.colorName);
+        if (!colorDefinition) {
+          colorDefinition = {
+            colorCode: tile.colorName,
+            colorName: tile.colorName
+          };
+          this.trackData.colorDefinitions.push(colorDefinition);
+          this.availableColorDefinitions = this.trackData.colorDefinitions;
+        }
+      });
+    });
   }
 
   private _loadStylesFromTrackData() {
@@ -88,7 +111,7 @@ export class TrackEditorComponent implements OnInit {
           this.availableRows.push(row);
         }
       });
-    } 
+    }
   }
 
   private _areRowsSimiliar(rowA:RowModel, rowB:RowModel) {
